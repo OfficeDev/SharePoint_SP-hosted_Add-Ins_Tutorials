@@ -18,7 +18,7 @@ This set of samples tracts the series of tutorials that begin at [Get started cr
 The following are the tutorial articles and the corresponding sample solutions:
 
 - [Get started creating SharePoint-hosted SharePoint Add-ins](http://msdn.microsoft.com/en-us/library/office/fp142379.aspx): N/A
-- [Deploy and Install a SharePoint-hosted add-in](): N/A
+- [Deploy and Install a SharePoint-hosted add-in](): BeforeColumns.sln
 - [Add custom columns to a SharePoint-hosted add-in](): BeforeColumns.sln
 - [Add a custom content type to a SharePoint-hosted add-in](): BeforeContentType.sln
 - [Add a Web Part to a page in a SharePoint-hosted add-in](): BeforeWebPart.sln
