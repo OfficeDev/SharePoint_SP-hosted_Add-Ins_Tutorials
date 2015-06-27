@@ -17,13 +17,18 @@ This set of samples tracts the series of tutorials that begin at [Get started cr
 
 The following are the tutorial articles and the corresponding sample solutions:
 
-- [Get started creating SharePoint-hosted SharePoint Add-ins](http://msdn.microsoft.com/en-us/library/office/fp142379.aspx): N/A
-- [Deploy and Install a SharePoint-hosted add-in](): BeforeColumns.sln
-- [Add custom columns to a SharePoint-hosted add-in](): BeforeColumns.sln
-- [Add a custom content type to a SharePoint-hosted add-in](): BeforeContentType.sln
-- [Add a Web Part to a page in a SharePoint-hosted add-in](): BeforeWebPart.sln
-- [Add a workflow to a SharePoint-hosted add-in](): BeforeWorkflow.sln
-- [Add a custom page and style to a SharePoint-hosted Add-in](): BeforePage.sln
+- [Get started creating SharePoint-hosted SharePoint Add-ins](http://msdn.microsoft.com/library/office/fp142379.aspx): N/A
+- [Deploy and Install a SharePoint-hosted add-in](http://msdn.microsoft.com/library/office/mt148586.aspx): BeforeColumns.sln
+- [Add custom columns to a SharePoint-hosted add-in](http://msdn.microsoft.com/library/office/mt148585.aspx): BeforeColumns.sln
+- [Add a custom content type to a SharePoint-hosted add-in](http://msdn.microsoft.com/library/office/mt148587.aspx): BeforeContentType.sln
+- [Add a Web Part to a page in a SharePoint-hosted add-in](http://msdn.microsoft.com/library/office/mt148588.aspx): BeforeWebPart.sln
+- [Add a workflow to a SharePoint-hosted add-in](http://msdn.microsoft.com/library/office/mt148590.aspx): BeforeWorkflow.sln
+- [Add a custom page and style to a SharePoint-hosted Add-in](http://msdn.microsoft.com/library/office/mt148589.aspx): BeforePage.sln
+- [Add custom client-side rendering to a SharePoint-hosted SharePoint Add-in](): BeforeClientRenderedControl.sln
+- [Create a custom ribbon button in the host web of a SharePoint Add-in](): BeforeRibbon.sln
+- [Use the SharePoint JavaScript APIs to work with SharePoint data](): BeforeJSOM.sln
+- [Work with host web data from JavaScript in the add-in web](): BeforeHostWebData.sln
+
 
 
 # To use these samples #
