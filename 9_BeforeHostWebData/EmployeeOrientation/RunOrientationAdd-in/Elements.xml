@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <CustomAction Id="3d289ec7-2373-4c0e-9f82-4b5e3eb00c9c.RunOrientationAdd-in"
+                RegistrationType="List"
+                RegistrationId="{$ListId:Lists/Employee Orientation Schedule;}"
+                Location="CommandUI.Ribbon"
+                Sequence="10001"
+                Title="Invoke &apos;RunOrientationAdd_in&apos; action">
+    <CommandUIExtension>
+      <!-- 
+      Update the UI definitions below with the controls and the command actions
+      that you want to enable for the custom action.
+      -->
+      <CommandUIDefinitions>
+        <CommandUIDefinition Location="Ribbon.Calendar.Events.Actions.Controls._children">
+          <Button Id="Ribbon.ListItem.Actions.RunOrientationAdd-inButton"
+                  Alt="Employee Orientation"
+                  Sequence="100"
+                  Command="Invoke_RunOrientationAdd-inButtonRequest"
+                  LabelText="Employee Orientation"
+                  TemplateAlias="o1"
+                  Image32by32="_layouts/15/images/placeholder32x32.png"
+                  Image16by16="_layouts/15/images/placeholder16x16.png" />
+        </CommandUIDefinition>
+      </CommandUIDefinitions>
+      <CommandUIHandlers>
+        <CommandUIHandler Command="Invoke_RunOrientationAdd-inButtonRequest"
+                          CommandAction="~appWebUrl/Lists/NewEmployeesInSeattle?SPListItemId={SelectedItemId}&amp;SPListId={SelectedListId}"/>
+      </CommandUIHandlers>
+    </CommandUIExtension >
+  </CustomAction>
+</Elements>
