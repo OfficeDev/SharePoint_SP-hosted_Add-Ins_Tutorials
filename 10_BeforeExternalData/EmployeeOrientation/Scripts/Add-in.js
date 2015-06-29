@@ -1,13 +1,19 @@
 ﻿'use strict';
 
-var clientContext = SP.ClientContext.get_current();
+var clientContext;
 var completedItems;
+var hostWebContext;
 var notStartedItems;
 var calendarList;
 var scheduledItems;
 var hostWebURL = decodeURIComponent(getQueryStringParameter("SPHostUrl"));
-var hostWebContext = new SP.AppContextSite(clientContext, hostWebURL);
 
+SP.SOD.executeFunc('sp.js', 'SP.ClientContext', sharePointReady);
+
+function sharePointReady() {
+    clientContext = SP.ClientContext.get_current();
+    hostWebContext = new SP.AppContextSite(clientContext, hostWebURL);
+}
 
 function purgeCompletedItems() {
 
@@ -38,7 +44,7 @@ function deleteCompletedItems() {
         itemArray[i].deleteObject();
     }
 
-    clientContext.executeQueryAsync(null, onDeleteCompletedItemsFail);
+    clientContext.executeQueryAsync(onDeleteCompletedItemsSuccess, onDeleteCompletedItemsFail);
 }
 
 function ensureOrientationScheduling() {
@@ -100,9 +106,14 @@ function scheduleAsNeeded() {
     }
 }
 
-function onScheduleItemsSuccess(sender, args) {
+function onDeleteCompletedItemsSuccess(sender, args) {
+    alert('Completed orientations deleted.');
+    location.reload(true);
+}
+
+function onScheduleItemsSuccess() {
     alert('There was at least one unscheduled orientation and it has been added to the '
-              + 'Employee Orientation Schedule calendar.');
+            + 'Employee Orientation Schedule calendar.');
 }
 
 // Failure callbacks

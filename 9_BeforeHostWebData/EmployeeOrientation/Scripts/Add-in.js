@@ -1,7 +1,13 @@
 ﻿'use strict';
 
-var clientContext = SP.ClientContext.get_current();
+var clientContext;
 var completedItems;
+
+SP.SOD.executeFunc('sp.js', 'SP.ClientContext', sharePointReady);
+
+function sharePointReady() {
+    clientContext = SP.ClientContext.get_current();
+}
 
 function purgeCompletedItems() {
 
@@ -32,7 +38,12 @@ function deleteCompletedItems() {
         itemArray[i].deleteObject();
     }
 
-    clientContext.executeQueryAsync(null, onDeleteCompletedItemsFail);
+    clientContext.executeQueryAsync(onDeleteCompletedItemsSuccess, onDeleteCompletedItemsFail);
+}
+
+function onDeleteCompletedItemsSuccess(sender, args) {
+    alert('Completed orientations deleted.');
+    location.reload(true);
 }
 
 // Failure callbacks
