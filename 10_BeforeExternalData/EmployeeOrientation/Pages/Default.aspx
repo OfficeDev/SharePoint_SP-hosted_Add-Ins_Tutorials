@@ -35,8 +35,9 @@
 
     <p><asp:Button runat="server" OnClientClick="ensureOrientationScheduling()" ID="ensureOrientationSchedulingButton" Text="Ensure Items are Scheduled" /></p>
 
-    <p><asp:HyperLink runat="server" NavigateUrl="/EmployeeOrientation/Pages/Help.aspx" Text="Get help for the Employee Orientation add-in" /></p>
-    <p><asp:HyperLink runat="server" NavigateUrl="/EmployeeOrientation/Lists/NewEmployeesInSeattle" Text="List View Page for New Employees in Seattle" /></p>
+      <p><asp:HyperLink runat="server" NavigateUrl="JavaScript:window.location = _spPageContextInfo.webAbsoluteUrl + '/Pages/Help.aspx';" Text="Get help for the Employee Orientation add-in" /></p>
+      
+      <p><asp:HyperLink runat="server" NavigateUrl="JavaScript:window.location = _spPageContextInfo.webAbsoluteUrl + '/Lists/NewEmployeesInSeattle/AllItems.aspx';" Text="List View Page for New Employees in Seattle" /></p>
 </asp:Content>
 
 <%--

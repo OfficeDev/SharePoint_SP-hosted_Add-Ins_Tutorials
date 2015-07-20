@@ -30,7 +30,7 @@
 <%-- The markup and script in the following Content element will be placed in the <body> of the page --%>
 <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
-<p><asp:HyperLink runat="server" NavigateUrl="/EmployeeOrientation/Lists/NewEmployeesInSeattle/AllItems.aspx" Text="New Employees in Seattle" /></p>
+  <p><asp:HyperLink runat="server" NavigateUrl="JavaScript:window.location = _spPageContextInfo.webAbsoluteUrl + '/Lists/NewEmployeesInSeattle/AllItems.aspx';" Text="New Employees in Seattle" /></p>
 
 </asp:Content>
 

@@ -31,9 +31,14 @@
 <asp:Content ContentPlaceHolderID="PlaceHolderMain" runat="server">
 
 <WebPartPages:WebPartZone runat="server" FrameType="TitleBarOnly" ID="HomePage1" Title="locfull" />
-    <p><asp:HyperLink runat="server" NavigateUrl="/EmployeeOrientation/Pages/Help.aspx" Text="Get help for the Employee Orientation add-in" /></p>
-    <p><asp:HyperLink runat="server" NavigateUrl="/EmployeeOrientation/Lists/NewEmployeesInSeattle" Text="List View Page for New Employees in Seattle" /></p>
+
+      <p><asp:HyperLink runat="server" NavigateUrl="JavaScript:window.location = _spPageContextInfo.webAbsoluteUrl + '/Pages/Help.aspx';" Text="Get help for the Employee Orientation add-in" /></p>
+      
+       <p><asp:HyperLink runat="server" NavigateUrl="JavaScript:window.location = _spPageContextInfo.webAbsoluteUrl + '/Lists/NewEmployeesInSeattle/AllItems.aspx';" Text="List View Page for New Employees in Seattle" /></p>
+
 </asp:Content>
+
+
 
 <%--
 SharePoint-hosted SharePoint Add-in Tutorials, https://github.com/OfficeDev/SharePoint_SP-hosted_Add-ins_Tutorials

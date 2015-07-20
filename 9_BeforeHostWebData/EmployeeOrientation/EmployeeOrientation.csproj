@@ -72,7 +72,9 @@
     </None>
     <Content Include="Lists\NewEmployeeOrientation\Elements.xml" />
     <Content Include="Lists\NewEmployeeOrientation\NewEmployeesInSeattle\Elements.xml" />
-    <Content Include="Lists\NewEmployeeOrientation\Schema.xml" />
+    <Content Include="Lists\NewEmployeeOrientation\Schema.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Pages\Elements.xml" />
     <Content Include="Pages\Default.aspx" />
     <None Include="RunOrientationAdd-in\SharePointProjectItem.spdata">

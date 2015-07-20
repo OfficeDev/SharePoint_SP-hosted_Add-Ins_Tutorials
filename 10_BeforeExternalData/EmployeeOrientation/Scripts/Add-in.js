@@ -1,22 +1,16 @@
-﻿'use strict';
+﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See full license at the bottom of this file. 
+
+'use strict';
 
 var clientContext;
 var completedItems;
-var hostWebContext;
 var notStartedItems;
 var calendarList;
 var scheduledItems;
 var hostWebURL = decodeURIComponent(getQueryStringParameter("SPHostUrl"));
 
-SP.SOD.executeFunc('sp.js', 'SP.ClientContext', sharePointReady);
-
-function sharePointReady() {
-    clientContext = SP.ClientContext.get_current();
-    hostWebContext = new SP.AppContextSite(clientContext, hostWebURL);
-}
-
 function purgeCompletedItems() {
-
+    clientContext = createFreshClientContext();
     var list = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');
     var camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml(
@@ -30,6 +24,8 @@ function purgeCompletedItems() {
 }
 
 function deleteCompletedItems() {
+    clientContext = createFreshClientContext();
+    var list = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');
 
     var itemArray = new Array();
     var listItemEnumerator = completedItems.getEnumerator();
@@ -41,37 +37,44 @@ function deleteCompletedItems() {
 
     var i;
     for (i = 0; i < itemArray.length; i++) {
-        itemArray[i].deleteObject();
+        list.getItemById(itemArray[i].get_id()).deleteObject();
     }
 
     clientContext.executeQueryAsync(onDeleteCompletedItemsSuccess, onDeleteCompletedItemsFail);
 }
 
 function ensureOrientationScheduling() {
-
+    clientContext = createFreshClientContext();
     var employeeList = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');
+
     var camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml(
         '<View><Query><Where><Eq>' +
             '<FieldRef Name=\'OrientationStage\'/><Value Type=\'Choice\'>Not started</Value>' +
         '</Eq></Where></Query></View>');
     notStartedItems = employeeList.getItems(camlQuery);
+  
     clientContext.load(notStartedItems);
-
     clientContext.executeQueryAsync(getScheduledOrientations, onGetNotStartedItemsFail);
 }
 
 function getScheduledOrientations() {
-
+    clientContext = createFreshClientContext();
+    var hostWebContext = new SP.AppContextSite(clientContext, hostWebURL);
     calendarList = hostWebContext.get_web().get_lists().getByTitle('Employee Orientation Schedule');
+
     var camlQuery = new SP.CamlQuery();
     scheduledItems = calendarList.getItems(camlQuery);
-    clientContext.load(scheduledItems);
 
+    clientContext.load(scheduledItems);
     clientContext.executeQueryAsync(scheduleAsNeeded, onGetScheduledItemsFail);
 }
 
 function scheduleAsNeeded() {
+    clientContext = createFreshClientContext();
+    var hostWebContext = new SP.AppContextSite(clientContext, hostWebURL);
+    calendarList = hostWebContext.get_web().get_lists().getByTitle('Employee Orientation Schedule');
+
     var unscheduledItems = false;
     var dayOfMonth = '10';
 
@@ -93,8 +96,8 @@ function scheduleAsNeeded() {
             var calendarItem = new SP.ListItemCreationInformation();
             var itemToCreate = calendarList.addItem(calendarItem);
             itemToCreate.set_item('Title', 'Orient ' + notStartedItem.get_item('Title'));
-            itemToCreate.set_item('EventDate', '2015-06-' + dayOfMonth + 'T21:00:00Z');
-            itemToCreate.set_item('EndDate', '2015-06-' + dayOfMonth + 'T23:00:00Z');
+            itemToCreate.set_item('EventDate', '2015-07-' + dayOfMonth + 'T21:00:00Z');
+            itemToCreate.set_item('EndDate', '2015-07-' + dayOfMonth + 'T23:00:00Z');
             dayOfMonth++;
             itemToCreate.update();
             unscheduledItems = true;
@@ -143,6 +146,10 @@ function onScheduleItemsFail(sender, args) {
 
 // Utility functions
 
+function createFreshClientContext() {  
+    return new SP.ClientContext(decodeURIComponent(getQueryStringParameter("SPAppWebUrl")));
+}
+
 function getQueryStringParameter(paramToRetrieve) {
     var params = document.URL.split("?")[1].split("&");
     var strParams = "";
@@ -154,3 +161,29 @@ function getQueryStringParameter(paramToRetrieve) {
     }
 }
 
+/*
+SharePoint-hosted SharePoint Add-in Tutorials, https://github.com/OfficeDev/SharePoint_SP-hosted_Add-ins_Tutorials
+ 
+Copyright (c) Microsoft Corporation
+All rights reserved. 
+ 
+MIT License:
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+ 
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+ 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.    
+*/
