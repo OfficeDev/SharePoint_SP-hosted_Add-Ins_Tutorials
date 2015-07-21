@@ -24,10 +24,10 @@ The following are the tutorial articles and the corresponding sample solutions:
 - [Add a Web Part to a page in a SharePoint-hosted add-in](http://msdn.microsoft.com/library/office/mt148588.aspx): BeforeWebPart.sln
 - [Add a workflow to a SharePoint-hosted add-in](http://msdn.microsoft.com/library/office/mt148590.aspx): BeforeWorkflow.sln
 - [Add a custom page and style to a SharePoint-hosted Add-in](http://msdn.microsoft.com/library/office/mt148589.aspx): BeforePage.sln
-- [Add custom client-side rendering to a SharePoint-hosted SharePoint Add-in](): BeforeClientRenderedControl.sln
-- [Create a custom ribbon button in the host web of a SharePoint Add-in](): BeforeRibbon.sln
-- [Use the SharePoint JavaScript APIs to work with SharePoint data](): BeforeJSOM.sln
-- [Work with host web data from JavaScript in the add-in web](): BeforeHostWebData.sln
+- [Add custom client-side rendering to a SharePoint-hosted SharePoint Add-in](https://msdn.microsoft.com/library/office/mt210456.aspx): BeforeClientRenderedControl.sln
+- [Create a custom ribbon button in the host web of a SharePoint Add-in](https://msdn.microsoft.com/library/office/mt210452.aspx): BeforeRibbon.sln
+- [Use the SharePoint JavaScript APIs to work with SharePoint data](https://msdn.microsoft.com/library/office/mt210455.aspx): BeforeJSOM.sln
+- [Work with host web data from JavaScript in the add-in web](https://msdn.microsoft.comlibrary/office/mt210457.aspx): BeforeHostWebData.sln
 
 
 
