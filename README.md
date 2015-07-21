@@ -27,7 +27,7 @@ The following are the tutorial articles and the corresponding sample solutions:
 - [Add custom client-side rendering to a SharePoint-hosted SharePoint Add-in](https://msdn.microsoft.com/library/office/mt210456.aspx): BeforeClientRenderedControl.sln
 - [Create a custom ribbon button in the host web of a SharePoint Add-in](https://msdn.microsoft.com/library/office/mt210452.aspx): BeforeRibbon.sln
 - [Use the SharePoint JavaScript APIs to work with SharePoint data](https://msdn.microsoft.com/library/office/mt210455.aspx): BeforeJSOM.sln
-- [Work with host web data from JavaScript in the add-in web](https://msdn.microsoft.comlibrary/office/mt210457.aspx): BeforeHostWebData.sln
+- [Work with host web data from JavaScript in the add-in web](https://msdn.microsoft.com/library/office/mt210457.aspx): BeforeHostWebData.sln
 
 
 
