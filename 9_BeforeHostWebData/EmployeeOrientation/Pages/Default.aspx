@@ -31,7 +31,7 @@
 
 <WebPartPages:WebPartZone runat="server" FrameType="TitleBarOnly" ID="HomePage1" Title="locfull" />
 
-    <p><asp:Button runat="server" OnClientClick="purgeCompletedItems()" ID="purgecompleteditemsbutton" Text="Purge Completed Items" /></p>
+    <p><asp:Button runat="server" OnClientClick="return purgeCompletedItems()" ID="purgecompleteditemsbutton" Text="Purge Completed Items" /></p>
 
       <p><asp:HyperLink runat="server" NavigateUrl="JavaScript:window.location = _spPageContextInfo.webAbsoluteUrl + '/Pages/Help.aspx';" Text="Get help for the Employee Orientation add-in" /></p>
       

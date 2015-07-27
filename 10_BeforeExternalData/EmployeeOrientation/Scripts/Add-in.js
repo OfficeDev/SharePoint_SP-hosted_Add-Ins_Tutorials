@@ -2,7 +2,8 @@
 
 'use strict';
 
-var clientContext;
+var clientContext = SP.ClientContext.get_current();
+var employeeList = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');;
 var completedItems;
 var notStartedItems;
 var calendarList;
@@ -10,22 +11,20 @@ var scheduledItems;
 var hostWebURL = decodeURIComponent(getQueryStringParameter("SPHostUrl"));
 
 function purgeCompletedItems() {
-    clientContext = createFreshClientContext();
-    var list = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');
+
     var camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml(
         '<View><Query><Where><Eq>' +
           '<FieldRef Name=\'OrientationStage\'/><Value Type=\'Choice\'>Completed</Value>' +
         '</Eq></Where></Query></View>');
-    completedItems = list.getItems(camlQuery);
+    completedItems = employeeList.getItems(camlQuery);
     clientContext.load(completedItems);
 
     clientContext.executeQueryAsync(deleteCompletedItems, onGetCompletedItemsFail);
+    return false;
 }
 
 function deleteCompletedItems() {
-    clientContext = createFreshClientContext();
-    var list = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');
 
     var itemArray = new Array();
     var listItemEnumerator = completedItems.getEnumerator();
@@ -37,15 +36,13 @@ function deleteCompletedItems() {
 
     var i;
     for (i = 0; i < itemArray.length; i++) {
-        list.getItemById(itemArray[i].get_id()).deleteObject();
+        employeeList.getItemById(itemArray[i].get_id()).deleteObject();
     }
 
     clientContext.executeQueryAsync(onDeleteCompletedItemsSuccess, onDeleteCompletedItemsFail);
 }
 
 function ensureOrientationScheduling() {
-    clientContext = createFreshClientContext();
-    var employeeList = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');
 
     var camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml(
@@ -56,10 +53,11 @@ function ensureOrientationScheduling() {
   
     clientContext.load(notStartedItems);
     clientContext.executeQueryAsync(getScheduledOrientations, onGetNotStartedItemsFail);
+    return false;
 }
 
 function getScheduledOrientations() {
-    clientContext = createFreshClientContext();
+
     var hostWebContext = new SP.AppContextSite(clientContext, hostWebURL);
     calendarList = hostWebContext.get_web().get_lists().getByTitle('Employee Orientation Schedule');
 
@@ -71,9 +69,6 @@ function getScheduledOrientations() {
 }
 
 function scheduleAsNeeded() {
-    clientContext = createFreshClientContext();
-    var hostWebContext = new SP.AppContextSite(clientContext, hostWebURL);
-    calendarList = hostWebContext.get_web().get_lists().getByTitle('Employee Orientation Schedule');
 
     var unscheduledItems = false;
     var dayOfMonth = '10';
@@ -145,10 +140,6 @@ function onScheduleItemsFail(sender, args) {
 }
 
 // Utility functions
-
-function createFreshClientContext() {  
-    return new SP.ClientContext(decodeURIComponent(getQueryStringParameter("SPAppWebUrl")));
-}
 
 function getQueryStringParameter(paramToRetrieve) {
     var params = document.URL.split("?")[1].split("&");

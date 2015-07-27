@@ -2,27 +2,25 @@
 
 'use strict';
 
-var clientContext;
+var clientContext = SP.ClientContext.get_current();
+var employeeList = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');;
 var completedItems;
 
 function purgeCompletedItems() {
 
-    clientContext = createFreshClientContext();
-    var list = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');
     var camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml(
         '<View><Query><Where><Eq>' +
           '<FieldRef Name=\'OrientationStage\'/><Value Type=\'Choice\'>Completed</Value>' +
         '</Eq></Where></Query></View>');
-    completedItems = list.getItems(camlQuery);
+    completedItems = employeeList.getItems(camlQuery);
     clientContext.load(completedItems);
-    
+
     clientContext.executeQueryAsync(deleteCompletedItems, onGetCompletedItemsFail);
+    return false;
 }
 
 function deleteCompletedItems() {
-    clientContext = createFreshClientContext();
-    var list = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');
 
     var itemArray = new Array();
     var listItemEnumerator = completedItems.getEnumerator();
@@ -34,7 +32,7 @@ function deleteCompletedItems() {
 
     var i;
     for (i = 0; i < itemArray.length; i++) {
-        list.getItemById(itemArray[i].get_id()).deleteObject();
+        employeeList.getItemById(itemArray[i].get_id()).deleteObject();
     }
 
     clientContext.executeQueryAsync(onDeleteCompletedItemsSuccess, onDeleteCompletedItemsFail);
@@ -55,22 +53,6 @@ function onDeleteCompletedItemsFail(sender, args) {
     alert('Unable to delete completed items. Error:' + args.get_message() + '\n' + args.get_stackTrace());
 }
 
-// Utility functions
-
-function createFreshClientContext() {
-    return new SP.ClientContext(decodeURIComponent(getQueryStringParameter("SPAppWebUrl")));
-}
-
-function getQueryStringParameter(paramToRetrieve) {
-    var params = document.URL.split("?")[1].split("&");
-    var strParams = "";
-    for (var i = 0; i < params.length; i = i + 1) {
-        var singleParam = params[i].split("=");
-        if (singleParam[0] == paramToRetrieve) {
-            return singleParam[1];
-        }
-    }
-}
 
 /*
 SharePoint-hosted SharePoint Add-in Tutorials, https://github.com/OfficeDev/SharePoint_SP-hosted_Add-ins_Tutorials
