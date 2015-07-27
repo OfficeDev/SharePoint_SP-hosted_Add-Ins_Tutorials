@@ -3,7 +3,7 @@
 'use strict';
 
 var clientContext = SP.ClientContext.get_current();
-var employeeList = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');;
+var employeeList = clientContext.get_web().get_lists().getByTitle('New Employees In Seattle');
 var completedItems;
 
 function purgeCompletedItems() {
