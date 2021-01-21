@@ -1,5 +1,7 @@
 # A Series of Visual Studio Solutions to Accompany the MSDN Tutorial Series about SharePoint-hosted Add-ins #
 
+> SharePoint add-in model is considered as a legacy option for extending SharePoint user interface. Please see [SharePoint Framework documentation](https://aka.ms/spfx) and the [SharePoint Framework samples](https://aka.ms/spfx-webparts) for the future proven option to extend SharePoint Online. Possible backend services should be using Azure Active Directly based registration and related app models.
+
 This repository is a series of *SharePoint-hosted* SharePoint Add-ins samples that are used with the tutorial series that begins with [Get started creating SharePoint-hosted SharePoint Add-ins](http://msdn.microsoft.com/en-us/library/office/fp142379.aspx).
 
 None of the samples in this repository contain *provider-hosted* SharePoint Add-ins. For information about the differences between the two types of SharePoint Add-ins, see [SharePoint Add-ins](http://msdn.microsoft.com/en-us/library/office/fp179930.aspx).
